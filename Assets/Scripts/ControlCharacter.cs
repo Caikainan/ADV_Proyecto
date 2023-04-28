@@ -8,9 +8,9 @@ public class ControlCharacter : MonoBehaviour
     public float moveSpeed = 1.0f;
     public float turnSpeed = 1.0f;
     public float transitionTime = 0.2f;
-    public float gravity = -9.8f;
+    public float gravity = -9.81f;
 
-    private CharacterController controller;
+    private CharacterController charactercontroller;
     private Animator animator;
     private Vector2 currentInput;
     private float verticalVelocity;
@@ -19,7 +19,7 @@ public class ControlCharacter : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        controller = GetComponent<CharacterController>();
+        charactercontroller = GetComponent<CharacterController>();
     }
 
  
@@ -35,7 +35,7 @@ public class ControlCharacter : MonoBehaviour
         animator.SetFloat("H", currentInput.x);
         animator.SetFloat("V", currentInput.y);
 
-        if(controller.isGrounded)
+        if(charactercontroller.isGrounded)
         {
             verticalVelocity = 0;
 
@@ -46,7 +46,7 @@ public class ControlCharacter : MonoBehaviour
             verticalVelocity += gravity * Time.deltaTime;
         }
         Vector3 gravityVector = new Vector3(0, verticalVelocity, 0);
-        controller.Move(gravityVector * Time.deltaTime);
+        charactercontroller.Move(gravityVector * Time.deltaTime);
 
      }
 
