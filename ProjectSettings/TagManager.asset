@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Door
+  - Enemy
+  - Enviroment
+  - Ray
   layers:
   - Default
   - TransparentFX

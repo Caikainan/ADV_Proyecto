@@ -9,17 +9,34 @@ public class ControlCharacter : MonoBehaviour
     public float turnSpeed = 1.0f;
     public float transitionTime = 0.2f;
     public float gravity = -9.81f;
+    float speed = 15;
 
     private CharacterController charactercontroller;
     private Animator animator;
     private Vector2 currentInput;
     private float verticalVelocity;
- 
 
+    public GameObject raywave;
+    public GameObject hand;
+    public Transform handBase;
+    private bool isEnable;
+
+    [SerializeField] AudioSource RayWaveShotAudio;
+
+    void creatRayWave()
+    {
+        GameObject rayWave = Instantiate(raywave, hand.transform.position, hand.transform.rotation);
+        rayWave.GetComponent<Rigidbody>().velocity = speed * handBase.forward;
+        RayWaveShotAudio.Play(0);
+    }
+
+    
     void Start()
     {
         animator = GetComponent<Animator>();
         charactercontroller = GetComponent<CharacterController>();
+
+        isEnable = false;
     }
 
  
@@ -35,11 +52,24 @@ public class ControlCharacter : MonoBehaviour
         animator.SetFloat("H", currentInput.x);
         animator.SetFloat("V", currentInput.y);
 
-        if(charactercontroller.isGrounded)
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //animator.SetBool("Kick", true);
+            //animator.SetBool("RayWave", false);
+            animator.Play("Kick");
+        }
+        if (Input.GetKeyDown(KeyCode.R) && !isEnable)
+        {
+            //animator.SetBool("RayWave", true);
+            //animator.SetBool("Kick", false);
+            animator.Play("RayWave");
+            //creat raywave
+            StartCoroutine(Waiter());
+        }
+
+        if (charactercontroller.isGrounded)
         {
             verticalVelocity = 0;
-
-
         }
         else
         {
@@ -50,6 +80,15 @@ public class ControlCharacter : MonoBehaviour
 
      }
 
+    private IEnumerator Waiter()
+    {
+        isEnable = true;
 
+        yield return new WaitForSeconds(1.3f);
+
+        creatRayWave();
+
+        isEnable = false;
+    }
 
 }
