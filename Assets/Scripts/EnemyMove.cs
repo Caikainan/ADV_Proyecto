@@ -20,7 +20,7 @@ public class EnemyMove : MonoBehaviour
     {
         direction = goal.transform.position - this.transform.position;
         this.transform.LookAt(goal.transform.position);
-        if (direction.magnitude > 10)
+        if (direction.magnitude > 7)
         {
             animator.Play("Run");
             Vector3 velocity = direction.normalized * speed * Time.deltaTime;

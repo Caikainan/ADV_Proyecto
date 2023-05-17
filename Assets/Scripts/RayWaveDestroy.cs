@@ -5,7 +5,7 @@ using UnityEngine;
 public class RayWaveDestroy : MonoBehaviour
 {
     public GameObject explotion;
-
+    
     void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag != null)

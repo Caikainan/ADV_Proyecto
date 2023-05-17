@@ -9,6 +9,7 @@ public class GameActiveTrgger : MonoBehaviour
     public GameObject EnemyBornPoint1;
     public GameObject EnemyBornPoint2;
     public GameObject EnemyBornPoint3;
+    public AudioSource RayWaveShotAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,7 @@ public class GameActiveTrgger : MonoBehaviour
             EnemyBornPoint1.SetActive(true);
             EnemyBornPoint2.SetActive(true);
             EnemyBornPoint3.SetActive(true);
+            RayWaveShotAudio.Play(0);
         }
     }
 }
